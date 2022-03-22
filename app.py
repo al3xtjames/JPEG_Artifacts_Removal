@@ -139,9 +139,10 @@ interface = gr.Interface(
                ["elon_musk.jpg",False,45,False,15,33,30]],
     title = "JPEG Artifacts Removal [FBCNN]",
     description = "Gradio Demo for JPEG Artifacts Removal. To use it, simply upload your image, "
-                  "or click one of the examples to load them. Checkout the paper and the original GitHub at the link below. "
+                  "or click one of the examples to load them. Check out the paper and the original GitHub at the link below. "
                   "JPEG artifacts are noticeable distortion of images caused by JPEG lossy compression. "
                   "This is not a super resolution AI but a JPEG compression artifact remover.",
-    article = "<p style='text-align: center;'><a href='https://github.com/jiaxi-jiang/FBCNN'>FBCNN GitHub Repo</a><br><a href='https://arxiv.org/abs/2109.14573'>Towards Flexible Blind JPEG Artifacts Removal (FBCNN, ICCV 2021)</a></p>",
+    article = "<p style='text-align: center;'><a href='https://github.com/jiaxi-jiang/FBCNN'>FBCNN GitHub Repo</a><br>"
+              "<a href='https://arxiv.org/abs/2109.14573'>Towards Flexible Blind JPEG Artifacts Removal (FBCNN, ICCV 2021)</a></p>",
     allow_flagging="never"
 ).launch(enable_queue=True)
