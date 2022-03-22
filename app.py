@@ -124,7 +124,7 @@ interface = gr.Interface(
                                                                      "(Increase to shift to the right)"),
               gr.inputs.Slider(minimum=0, maximum=100, step=1, label="Zoom preview vertical shift "
                                                                      "(Increase to shift downwards)"),
-              gr.inputs.State(default=[None,None])
+              gr.inputs.State(default=[None,None], label="\t")
               ],
     outputs = [gr.outputs.Image(label="Result"),
                gr.outputs.Image(label="Before:"),
