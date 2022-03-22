@@ -82,13 +82,12 @@ def inference(input_img, is_gray, input_quality, zoom, x_shift, y_shift):
     # ------------------------------------
       
     img_E,QF = model(img_L)
-    QF = 1- QF
     img_E = util.tensor2single(img_E)
     img_E = util.single2uint(img_E)
 
     qf_input = torch.tensor([[1-input_quality/100]]).cuda() if device == torch.device('cuda') else torch.tensor([[1-input_quality/100]])
     img_E,QF = model(img_L, qf_input)  
-    QF = 1- QF
+
     img_E = util.tensor2single(img_E)
     img_E = util.single2uint(img_E)
 
@@ -138,7 +137,7 @@ gr.Interface(
                ["text.jpg",True,70,50,11,29]],
     title = "JPEG Artifacts Removal [FBCNN]",
     description = "Gradio Demo for JPEG Artifacts Removal. To use it, simply upload your image, "
-                  "or click one of the examples to load them. Check out the paper and the original GitHub repo at the link below. "
+                  "or click one of the examples to load them. Check out the paper and the original GitHub repo at the links below. "
                   "JPEG artifacts are noticeable distortion of images caused by JPEG lossy compression. "
                   "This is not a super resolution AI but a JPEG compression artifact remover.",
     article = "<p style='text-align: center;'><a href='https://github.com/jiaxi-jiang/FBCNN'>FBCNN GitHub Repo</a><br>"
