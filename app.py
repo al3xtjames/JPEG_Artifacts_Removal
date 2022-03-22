@@ -118,9 +118,6 @@ gr.Interface(
     inputs = [gr.inputs.Image(label="Input Image"),
               gr.inputs.Checkbox(label="Grayscale (Check this if your image is grayscale)"),
               gr.inputs.Slider(minimum=1, maximum=100, step=1, label="Intensity (Higher = stronger JPEG artifact removal)"),
-              gr.inputs.Checkbox(default=False, label="Edit Zoom preview (This is optional. "
-                                                      "After the image result is loaded, check this to edit zoom parameters "
-                                                      "so that the input image will not be processed when the submit button is pressed.)"),
               gr.inputs.Slider(minimum=10, maximum=100, step=1, default=50, label="Zoom Image "
                                                                                   "(Use this to see the image quality up close. "
                                                                                    "100 = original size)"),
