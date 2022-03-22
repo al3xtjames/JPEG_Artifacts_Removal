@@ -116,20 +116,27 @@ interface = gr.Interface(
     inputs = [gr.inputs.Image(),
               gr.inputs.Checkbox(label="Grayscale (Check this if your image is grayscale)"),
               gr.inputs.Slider(minimum=1, maximum=100, step=1, label="Intensity (Higher = more JPEG artifact removal)"),
-              gr.inputs.Checkbox(default=False, label="Edit Zoom preview \nThis is optional. "
+              gr.inputs.Checkbox(default=False, label="Edit Zoom preview \n(This is optional. "
                                                       "Check this after the image result is loaded to edit zoom parameters\n"
-                                                      "without processing the input image."),
+                                                      "without processing the input image.)"),
               gr.inputs.Slider(minimum=10, maximum=100, step=1, default=50, label="Zoom Image \n"
-                                                                                  "Use this to see the image quality up close \n"
-                                                                                   "100 = original size"),
+                                                                                  "(Use this to see the image quality up close. \n"
+                                                                                   "100 = original size)"),
               gr.inputs.Slider(minimum=0, maximum=100, step=1, label="Zoom preview horizontal shift \n"
-                                                                     "Increase to shift to the right"),
+                                                                     "(Increase to shift to the right)"),
               gr.inputs.Slider(minimum=0, maximum=100, step=1, label="Zoom preview vertical shift \n"
-                                                                     "Increase to shift downwards"),
+                                                                     "(Increase to shift downwards)"),
               gr.inputs.State(default=[None,None])
               ],
     outputs = [gr.outputs.Image(label="Result"),
                gr.outputs.Image(label="Before:"),
                gr.outputs.Image(label="After:"),
-               "state"]
-).launch(enable_queue=True,cache_examples=True)
+               "state"],
+    examples = [["doraemon.jpg",False,60,False,42,50,50],
+               ["tomandjerry.jpg",False,60,False,40,57,44],
+               ["somepanda.jpg",True,100,False,30,8,24],
+               ["cemetry.jpg",False,70,False,20,44,77],
+               ["michelangelo_david.jpg",True,30,False,12,53,27],
+               ["elon_musk.jpg",False,45,False,15,33,30]],
+    allow_flagging=False
+).launch(enable_queue=True)
