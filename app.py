@@ -10,7 +10,7 @@ from network_fbcnn import FBCNN as net
 import requests
 
 for model_path in ['fbcnn_gray.pth','fbcnn_color.pth']:
-    if os.path.exists(path):
+    if os.path.exists(model_path):
         print(f'loading model from {model_path}')
     else:
         os.makedirs(os.path.dirname(model_path), exist_ok=True)
