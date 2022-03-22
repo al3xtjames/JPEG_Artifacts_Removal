@@ -5,9 +5,8 @@ from collections import OrderedDict
 import torch
 import cv2
 from PIL import Image, ImageOps
-from utils import utils_logger
-from utils import utils_image as util
-from models.network_fbcnn import FBCNN as net
+import utils_image as util
+from network_fbcnn import FBCNN as net
 import requests
 
 
