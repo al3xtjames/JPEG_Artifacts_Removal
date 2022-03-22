@@ -133,7 +133,7 @@ gr.Interface(
     examples = [["doraemon.jpg",False,60,False,42,50,50],
                ["tomandjerry.jpg",False,60,False,40,57,44],
                ["somepanda.jpg",True,100,False,30,8,24],
-               ["cemetry.jpg",False,70,False,20,44,77],
+               ["cemetry.jpg",False,70,False,20,76,62],
                ["michelangelo_david.jpg",True,30,False,12,53,27],
                ["elon_musk.jpg",False,45,False,15,33,30],
                ["text.jpg",True,70,False,50,11,29]],
