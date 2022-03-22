@@ -116,7 +116,7 @@ interface = gr.Interface(
               gr.inputs.Checkbox(label="Grayscale (Check this if your image is grayscale)"),
               gr.inputs.Slider(minimum=1, maximum=100, step=1, label="Intensity (Higher = stronger JPEG artifact removal)"),
               gr.inputs.Checkbox(default=False, label="Edit Zoom preview (This is optional. "
-                                                      "Check this after the image result is loaded to edit zoom parameters"
+                                                      "Check this after the image result is loaded to edit zoom parameters "
                                                       "without processing the input image.)"),
               gr.inputs.Slider(minimum=10, maximum=100, step=1, default=50, label="Zoom Image "
                                                                                   "(Use this to see the image quality up close. "
@@ -139,9 +139,9 @@ interface = gr.Interface(
                ["elon_musk.jpg",False,45,False,15,33,30]],
     title = "JPEG Artifacts Removal [FBCNN]",
     description = "Gradio Demo for JPEG Artifacts Removal. To use it, simply upload your image, "
-                  "or click one of the examples to load them. Checkout the original GitHub at the link below. "
+                  "or click one of the examples to load them. Checkout the paper and the original GitHub at the link below. "
                   "JPEG artifacts are noticeable distortion of images caused by JPEG lossy compression. "
                   "This is not a super resolution AI but a JPEG compression artifact remover.",
-    article = "<p style='text-align: center'><a href='https://github.com/jiaxi-jiang/FBCNN' target='_blank'>FBCNN Github Repo</a></p>",
+    article = "<p style='text-align: center;'><a href='https://github.com/jiaxi-jiang/FBCNN'>FBCNN GitHub Repo</a><br><a href='https://arxiv.org/abs/2109.14573'>Towards Flexible Blind JPEG Artifacts Removal (FBCNN, ICCV 2021)</a></p>",
     allow_flagging="never"
 ).launch(enable_queue=True)
