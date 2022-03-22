@@ -95,8 +95,10 @@ def inference(input_img, is_gray, input_quality, enable_zoom, zoom, x_shift, y_s
 
         if img_E.ndim == 3:
             img_E = img_E[:, :, [2, 1, 0]]
+        
+        print("--inference finished")
     if (state[1] is not None) and enable_zoom:
-      img_E = state[1]
+        img_E = state[1]
     out_img = Image.fromarray(img_E)
     out_img_w, out_img_h = out_img.size # output image size
     zoom = zoom/100
