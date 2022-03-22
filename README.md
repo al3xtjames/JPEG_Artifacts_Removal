@@ -1,8 +1,8 @@
 ---
 title: JPEG_Artifacts_Removal
-emoji: 🌍
-colorFrom: indigo
-colorTo: blue
+emoji: 🖼️
+colorFrom: white
+colorTo: black
 sdk: gradio
 sdk_version: 2.8.13
 app_file: app.py
