@@ -1,5 +1,5 @@
 ---
-title: JPEG_Artifacts_Removal
+title: JPEG Artifacts Removal
 emoji: 🖼️
 colorFrom: white
 colorTo: black
