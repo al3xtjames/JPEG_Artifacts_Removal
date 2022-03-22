@@ -24,9 +24,9 @@ def inference(input_img, is_gray, input_quality, enable_zoom, zoom, x_shift, y_s
 
     input_quality = 100 - input_quality
 
-    #model_pool = 'model_zoo'  # fixed
-    model_pool = '/content/FBCNN/model_zoo'  # fixed
-    model_path = os.path.join(model_pool, model_name)
+    #model_pool = '/FBCNN/model_zoo'  # fixed
+    #model_path = os.path.join(model_pool, model_name)
+    model_path = model_name
     if os.path.exists(model_path):
         print(f'loading model from {model_path}')
     else:
