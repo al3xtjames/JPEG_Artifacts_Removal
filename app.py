@@ -142,6 +142,6 @@ interface = gr.Interface(
                   "or click one of the examples to load them. Checkout the original GitHub at the link below. "
                   "JPEG artifacts are noticeable distortion of images caused by JPEG lossy compression. "
                   "This is not a super resolution AI but a JPEG compression artifact remover.",
-    article = "<p style='text-align: center'><a href='https://github.com/jiaxi-jiang/FBCNN' target='_blank'>FBCNN Github Repo</a></p>"
+    article = "<p style='text-align: center'><a href='https://github.com/jiaxi-jiang/FBCNN' target='_blank'>FBCNN Github Repo</a></p>",
     allow_flagging=False
 ).launch(enable_queue=True,cache_examples=True)
