@@ -32,17 +32,7 @@ def inference(input_img, is_gray, input_quality, enable_zoom, zoom, x_shift, y_s
 
     input_quality = 100 - input_quality
 
-    #model_pool = '/FBCNN/model_zoo'  # fixed
-    #model_path = os.path.join(model_pool, model_name)
-    model_path = model_name
-    """
-    if os.path.exists(model_path):
-        print(f'loading model from {model_path}')
-    else:
-        os.makedirs(os.path.dirname(model_path), exist_ok=True)
-        url = 'https://github.com/jiaxi-jiang/FBCNN/releases/download/v1.0/{}'.format(os.path.basename(model_path))
-        r = requests.get(url, allow_redirects=True)
-        open(model_path, 'wb').write(r.content)"""    
+    model_path = model_name   
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -124,16 +114,16 @@ interface = gr.Interface(
     fn = inference,
     inputs = [gr.inputs.Image(),
               gr.inputs.Checkbox(label="Grayscale (Check this if your image is grayscale)"),
-              gr.inputs.Slider(minimum=1, maximum=100, step=1, label="Intensity (Higher = more JPEG artifact removal)"),
-              gr.inputs.Checkbox(default=False, label="Edit Zoom preview \n(This is optional. "
-                                                      "Check this after the image result is loaded to edit zoom parameters\n"
+              gr.inputs.Slider(minimum=1, maximum=100, step=1, label="Intensity (Higher = stronger JPEG artifact removal)"),
+              gr.inputs.Checkbox(default=False, label="Edit Zoom preview (This is optional. "
+                                                      "Check this after the image result is loaded to edit zoom parameters"
                                                       "without processing the input image.)"),
-              gr.inputs.Slider(minimum=10, maximum=100, step=1, default=50, label="Zoom Image \n"
-                                                                                  "(Use this to see the image quality up close. \n"
+              gr.inputs.Slider(minimum=10, maximum=100, step=1, default=50, label="Zoom Image "
+                                                                                  "(Use this to see the image quality up close. "
                                                                                    "100 = original size)"),
-              gr.inputs.Slider(minimum=0, maximum=100, step=1, label="Zoom preview horizontal shift \n"
+              gr.inputs.Slider(minimum=0, maximum=100, step=1, label="Zoom preview horizontal shift "
                                                                      "(Increase to shift to the right)"),
-              gr.inputs.Slider(minimum=0, maximum=100, step=1, label="Zoom preview vertical shift \n"
+              gr.inputs.Slider(minimum=0, maximum=100, step=1, label="Zoom preview vertical shift "
                                                                      "(Increase to shift downwards)"),
               gr.inputs.State(default=[None,None])
               ],
@@ -147,5 +137,10 @@ interface = gr.Interface(
                ["cemetry.jpg",False,70,False,20,44,77],
                ["michelangelo_david.jpg",True,30,False,12,53,27],
                ["elon_musk.jpg",False,45,False,15,33,30]],
+    title = "JPEG Artifacts Removal [FBCNN]",
+    description = "Gradio Demo for JPEG Artifacts Removal. To use it, simply upload your image, "
+                  "or click one of the examples to load them. Checkout the original GitHub at the link below. "
+                  "JPEG artifacts are noticeable distortion of images caused by JPEG lossy compression. "
+                  "This is not a super resolution AI but a JPEG compression artifact remover.",
     allow_flagging=False
-).launch(enable_queue=True)
+).launch(enable_queue=True,cache_examples=True)
