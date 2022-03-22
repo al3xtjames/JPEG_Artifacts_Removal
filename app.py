@@ -11,7 +11,7 @@ import requests
 
 for model_path in ['fbcnn_gray.pth','fbcnn_color.pth']:
     if os.path.exists(model_path):
-        print(f'loading model from {model_path}')
+        print(f'{model_path} exists.')
     else:
         url = 'https://github.com/jiaxi-jiang/FBCNN/releases/download/v1.0/{}'.format(os.path.basename(model_path))
         r = requests.get(url, allow_redirects=True)
@@ -109,7 +109,7 @@ def inference(input_img, is_gray, input_quality, enable_zoom, zoom, x_shift, y_s
 
     return img_E, in_img, out_img, [state[0],img_E]
     
-interface = gr.Interface(
+gr.Interface(
     fn = inference,
     inputs = [gr.inputs.Image(label="Input Image"),
               gr.inputs.Checkbox(label="Grayscale (Check this if your image is grayscale)"),
@@ -136,7 +136,7 @@ interface = gr.Interface(
                ["cemetry.jpg",False,70,False,20,44,77],
                ["michelangelo_david.jpg",True,30,False,12,53,27],
                ["elon_musk.jpg",False,45,False,15,33,30],
-               ["text.jpg",True,65,False,50,11,29]],
+               ["text.jpg",True,70,False,50,11,29]],
     title = "JPEG Artifacts Removal [FBCNN]",
     description = "Gradio Demo for JPEG Artifacts Removal. To use it, simply upload your image, "
                   "or click one of the examples to load them. Check out the paper and the original GitHub repo at the link below. "
