@@ -136,7 +136,7 @@ interface = gr.Interface(
                ["cemetry.jpg",False,70,False,20,44,77],
                ["michelangelo_david.jpg",True,30,False,12,53,27],
                ["elon_musk.jpg",False,45,False,15,33,30],
-               ["text.jpg",True,65,False,24,11,13]],
+               ["text.jpg",True,65,False,50,11,29]],
     title = "JPEG Artifacts Removal [FBCNN]",
     description = "Gradio Demo for JPEG Artifacts Removal. To use it, simply upload your image, "
                   "or click one of the examples to load them. Check out the paper and the original GitHub at the link below. "
