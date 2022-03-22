@@ -9,6 +9,14 @@ import utils_image as util
 from network_fbcnn import FBCNN as net
 import requests
 
+for model_path in ['fbcnn_gray.pth','fbcnn_color.pth']:
+    if os.path.exists(path):
+        print(f'loading model from {model_path}')
+    else:
+        os.makedirs(os.path.dirname(model_path), exist_ok=True)
+        url = 'https://github.com/jiaxi-jiang/FBCNN/releases/download/v1.0/{}'.format(os.path.basename(model_path))
+        r = requests.get(url, allow_redirects=True)
+        open(model_path, 'wb').write(r.content)    
 
 def inference(input_img, is_gray, input_quality, enable_zoom, zoom, x_shift, y_shift, state):
 
@@ -27,13 +35,14 @@ def inference(input_img, is_gray, input_quality, enable_zoom, zoom, x_shift, y_s
     #model_pool = '/FBCNN/model_zoo'  # fixed
     #model_path = os.path.join(model_pool, model_name)
     model_path = model_name
+    """
     if os.path.exists(model_path):
         print(f'loading model from {model_path}')
     else:
         os.makedirs(os.path.dirname(model_path), exist_ok=True)
         url = 'https://github.com/jiaxi-jiang/FBCNN/releases/download/v1.0/{}'.format(os.path.basename(model_path))
         r = requests.get(url, allow_redirects=True)
-        open(model_path, 'wb').write(r.content)    
+        open(model_path, 'wb').write(r.content)"""    
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
