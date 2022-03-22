@@ -13,7 +13,6 @@ for model_path in ['fbcnn_gray.pth','fbcnn_color.pth']:
     if os.path.exists(model_path):
         print(f'loading model from {model_path}')
     else:
-        #os.makedirs(os.path.dirname(model_path), exist_ok=True)
         url = 'https://github.com/jiaxi-jiang/FBCNN/releases/download/v1.0/{}'.format(os.path.basename(model_path))
         r = requests.get(url, allow_redirects=True)
         open(model_path, 'wb').write(r.content)    
@@ -112,12 +111,12 @@ def inference(input_img, is_gray, input_quality, enable_zoom, zoom, x_shift, y_s
     
 interface = gr.Interface(
     fn = inference,
-    inputs = [gr.inputs.Image(),
+    inputs = [gr.inputs.Image(label="Input Image"),
               gr.inputs.Checkbox(label="Grayscale (Check this if your image is grayscale)"),
               gr.inputs.Slider(minimum=1, maximum=100, step=1, label="Intensity (Higher = stronger JPEG artifact removal)"),
               gr.inputs.Checkbox(default=False, label="Edit Zoom preview (This is optional. "
-                                                      "Check this after the image result is loaded to edit zoom parameters "
-                                                      "without processing the input image.)"),
+                                                      "After the image result is loaded, check this to edit zoom parameters "
+                                                      "so that the input image will not be processed when the submit button is pressed.)"),
               gr.inputs.Slider(minimum=10, maximum=100, step=1, default=50, label="Zoom Image "
                                                                                   "(Use this to see the image quality up close. "
                                                                                    "100 = original size)"),
