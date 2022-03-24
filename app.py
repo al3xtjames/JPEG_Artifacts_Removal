@@ -13,6 +13,7 @@ for model_path in ['fbcnn_gray.pth','fbcnn_color.pth']:
     if os.path.exists(model_path):
         print(f'{model_path} exists.')
     else:
+        print("downloading model")
         url = 'https://github.com/jiaxi-jiang/FBCNN/releases/download/v1.0/{}'.format(os.path.basename(model_path))
         r = requests.get(url, allow_redirects=True)
         open(model_path, 'wb').write(r.content)    
@@ -36,6 +37,7 @@ def inference(input_img, is_gray, input_quality, zoom, x_shift, y_shift):
     if os.path.exists(model_path):
         print(f'loading model from {model_path}')
     else:
+        print("downloading model")
         os.makedirs(os.path.dirname(model_path), exist_ok=True)
         url = 'https://github.com/jiaxi-jiang/FBCNN/releases/download/v1.0/{}'.format(os.path.basename(model_path))
         r = requests.get(url, allow_redirects=True)
@@ -141,6 +143,9 @@ gr.Interface(
                   "JPEG artifacts are noticeable distortion of images caused by JPEG lossy compression. "
                   "This is not a super resolution AI but a JPEG compression artifact remover.",
     article = "<p style='text-align: center;'><a href='https://github.com/jiaxi-jiang/FBCNN'>FBCNN GitHub Repo</a><br>"
-              "<a href='https://arxiv.org/abs/2109.14573'>Towards Flexible Blind JPEG Artifacts Removal (FBCNN, ICCV 2021)</a></p>",
+              "<a href='https://arxiv.org/abs/2109.14573'>Towards Flexible Blind JPEG Artifacts Removal (FBCNN, ICCV 2021)</a><br>"
+              "<a href='https://jiaxi-jiang.github.io/'>Jiaxi Jiang, </a>"
+              "<a href='https://cszn.github.io/'>Kai Zhang, </a>"
+              "<a href='http://people.ee.ethz.ch/~timofter/'>Radu Timofte</a></p>",
     allow_flagging="never"
 ).launch(enable_queue=True)
