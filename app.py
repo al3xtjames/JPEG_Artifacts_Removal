@@ -8,6 +8,7 @@ from PIL import Image, ImageOps
 import utils_image as util
 from network_fbcnn import FBCNN as net
 import requests
+import datetime
 
 for model_path in ['fbcnn_gray.pth','fbcnn_color.pth']:
     if os.path.exists(model_path):
@@ -19,8 +20,16 @@ for model_path in ['fbcnn_gray.pth','fbcnn_color.pth']:
         open(model_path, 'wb').write(r.content)    
 
 def inference(input_img, is_gray, input_quality, zoom, x_shift, y_shift):
-
-    print("img size:",Image.fromarray(input_img).size)
+    
+    print("datetime:",datetime.datetime.utcnow())
+    input_img_width, input_img_height = Image.fromarray(input_img).size
+    print("img size:",(input_img_width,input_img_height))
+    
+    if (input_img_width > 1080) or (input_img_height > 1080):
+        resize_ratio = min(1080/input_img_width, 1080/input_img_height)
+        resized_input = Image.fromarray(input_img).resize((int(input_img_width*resize_ratio),int(input_img_height*resize_ratio)),resample=Image.BICUBIC)
+        input_img = np.array(resized_input)
+        print("input image resized to:", resized_input.size)
 
     if is_gray:
         n_channels = 1 # set 1 for grayscale image, set 3 for color image
