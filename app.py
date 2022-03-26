@@ -20,6 +20,8 @@ for model_path in ['fbcnn_gray.pth','fbcnn_color.pth']:
 
 def inference(input_img, is_gray, input_quality, zoom, x_shift, y_shift):
 
+    print("img size:",Image.fromarray(input_img).size)
+
     if is_gray:
         n_channels = 1 # set 1 for grayscale image, set 3 for color image
         model_name = 'fbcnn_gray.pth'
@@ -35,7 +37,7 @@ def inference(input_img, is_gray, input_quality, zoom, x_shift, y_shift):
     model_path = model_name
 
     if os.path.exists(model_path):
-        print(f'loading model from {model_path}')
+        print(f'{model_path} already exists.')
     else:
         print("downloading model")
         os.makedirs(os.path.dirname(model_path), exist_ok=True)
@@ -44,16 +46,22 @@ def inference(input_img, is_gray, input_quality, zoom, x_shift, y_shift):
         open(model_path, 'wb').write(r.content)
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    print("device:",device)
 
     # ----------------------------------------
     # load model
     # ----------------------------------------
+    
+    print(f'loading model from {model_path}')
+    
     model = net(in_nc=n_channels, out_nc=n_channels, nc=nc, nb=nb, act_mode='R')
     model.load_state_dict(torch.load(model_path), strict=True)
     model.eval()
     for k, v in model.named_parameters():
         v.requires_grad = False
     model = model.to(device)
+
+    print("Model loaded.")
 
     test_results = OrderedDict()
     test_results['psnr'] = []
@@ -64,6 +72,7 @@ def inference(input_img, is_gray, input_quality, zoom, x_shift, y_shift):
     # (1) img_L
     # ------------------------------------
 
+    print("#if n_channels")
     if n_channels == 1:
         open_cv_image = Image.fromarray(input_img)
         open_cv_image = ImageOps.grayscale(open_cv_image)
@@ -76,21 +85,31 @@ def inference(input_img, is_gray, input_quality, zoom, x_shift, y_shift):
         else:
             open_cv_image = cv2.cvtColor(open_cv_image, cv2.COLOR_BGR2RGB)  # RGB
 
+    print("#util.uint2tensor4(open_cv_image)")
     img_L = util.uint2tensor4(open_cv_image)
+    
+    print("#img_L.to(device)")
     img_L = img_L.to(device)
 
     # ------------------------------------
     # (2) img_E
     # ------------------------------------
-      
+    
+    print("#model(img_L)")
     img_E,QF = model(img_L)
+    print("#util.tensor2single(img_E)")
     img_E = util.tensor2single(img_E)
+    print("#util.single2uint(img_E)")
     img_E = util.single2uint(img_E)
-
+    
+    print("#torch.tensor([[1-input_quality/100]]).cuda() || torch.tensor([[1-input_quality/100]])")
     qf_input = torch.tensor([[1-input_quality/100]]).cuda() if device == torch.device('cuda') else torch.tensor([[1-input_quality/100]])
+    print("#util.single2uint(img_E)")
     img_E,QF = model(img_L, qf_input)  
 
+    print("#util.tensor2single(img_E)")
     img_E = util.tensor2single(img_E)
+    print("#util.single2uint(img_E)")
     img_E = util.single2uint(img_E)
 
     if img_E.ndim == 3:
@@ -111,7 +130,9 @@ def inference(input_img, is_gray, input_quality, zoom, x_shift, y_shift):
     in_img = in_img.resize((int(zoom_w/zoom), int(zoom_h/zoom)), Image.NEAREST)
     out_img = out_img.crop((zoom_left, zoom_top, zoom_right, zoom_bottom))
     out_img = out_img.resize((int(zoom_w/zoom), int(zoom_h/zoom)), Image.NEAREST)
-
+    
+    print("--generating preview finished")
+    
     return img_E, in_img, out_img
     
 gr.Interface(
