@@ -171,8 +171,8 @@ gr.Interface(
     description = "Gradio Demo for JPEG Artifacts Removal. To use it, simply upload your image, "
                   "or click one of the examples to load them. Check out the paper and the original GitHub repo at the links below. "
                   "JPEG artifacts are noticeable distortions of images caused by JPEG lossy compression. "
-                  "This is not a super-resolution AI but a JPEG compression artifact remover."
-                  "Note: uploaded images with a length longer than 1080 pixels will be downscaled to a smaller size with a length of 1080p.",
+                  "This is not a super-resolution AI but a JPEG compression artifact remover. "
+                  "Uploaded images with a length longer than 1080 pixels will be downscaled to a smaller size with a length of 1080p.",
     article = "<p style='text-align: center;'><a href='https://github.com/jiaxi-jiang/FBCNN'>FBCNN GitHub Repo</a><br>"
               "<a href='https://arxiv.org/abs/2109.14573'>Towards Flexible Blind JPEG Artifacts Removal (FBCNN, ICCV 2021)</a><br>"
               "<a href='https://jiaxi-jiang.github.io/'>Jiaxi Jiang, </a>"
