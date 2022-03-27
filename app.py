@@ -64,11 +64,17 @@ def inference(input_img, is_gray, input_quality, zoom, x_shift, y_shift):
     print(f'loading model from {model_path}')
     
     model = net(in_nc=n_channels, out_nc=n_channels, nc=nc, nb=nb, act_mode='R')
+    print("#model.load_state_dict(torch.load(model_path), strict=True)")
     model.load_state_dict(torch.load(model_path), strict=True)
+    print("#model.eval()")
     model.eval()
+    print("#for k, v in model.named_parameters()")
     for k, v in model.named_parameters():
         v.requires_grad = False
+    print("#model.to(device)")
     model = model.to(device)
+
+    print("Model loaded.")
 
     print("Model loaded.")
 
