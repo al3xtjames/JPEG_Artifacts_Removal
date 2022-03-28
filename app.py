@@ -27,7 +27,9 @@ def inference(input_img, is_gray, input_quality, zoom, x_shift, y_shift):
     
     if (input_img_width > 1080) or (input_img_height > 1080):
         resize_ratio = min(1080/input_img_width, 1080/input_img_height)
-        resized_input = Image.fromarray(input_img).resize((int(input_img_width*resize_ratio),int(input_img_height*resize_ratio)),resample=Image.BICUBIC)
+        resized_input = Image.fromarray(input_img).resize((int(input_img_width*resize_ratio)+(input_img_width*resize_ratio < 1),
+                                                           int(input_img_height*resize_ratio)+(input_img_height*resize_ratio < 1)),
+                                                          resample=Image.BICUBIC)
         input_img = np.array(resized_input)
         print("input image resized to:", resized_input.size)
 
@@ -73,9 +75,6 @@ def inference(input_img, is_gray, input_quality, zoom, x_shift, y_shift):
         v.requires_grad = False
     print("#model.to(device)")
     model = model.to(device)
-
-    print("Model loaded.")
-
     print("Model loaded.")
 
     test_results = OrderedDict()
