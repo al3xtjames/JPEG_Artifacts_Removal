@@ -56,7 +56,14 @@ def inference(input_img, is_gray, input_quality, zoom, x_shift, y_shift):
         r = requests.get(url, allow_redirects=True)
         open(model_path, 'wb').write(r.content)
 
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    if torch.cuda.is_available():
+        device_type = 'cuda'
+    elif torch.backends.mps.is_available():
+        device_type = 'mps'
+    else:
+        device_type = 'cpu'
+
+    device = torch.device(device_type)
     print("device:",device)
 
     # ----------------------------------------
@@ -116,8 +123,8 @@ def inference(input_img, is_gray, input_quality, zoom, x_shift, y_shift):
     print("#util.single2uint(img_E)")
     img_E = util.single2uint(img_E)
     
-    print("#torch.tensor([[1-input_quality/100]]).cuda() || torch.tensor([[1-input_quality/100]])")
-    qf_input = torch.tensor([[1-input_quality/100]]).cuda() if device == torch.device('cuda') else torch.tensor([[1-input_quality/100]])
+    print("#torch.tensor([[1-input_quality/100]]).to(device)")
+    qf_input = torch.tensor([[1-input_quality/100]]).to(device)
     print("#util.single2uint(img_E)")
     img_E,QF = model(img_L, qf_input)  
 
