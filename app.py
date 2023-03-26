@@ -151,20 +151,18 @@ def inference(input_img, is_gray, input_quality, zoom, x_shift, y_shift):
     
 gr.Interface(
     fn = inference,
-    inputs = [gr.inputs.Image(label="Input Image"),
-              gr.inputs.Checkbox(label="Grayscale (Check this if your image is grayscale)"),
-              gr.inputs.Slider(minimum=1, maximum=100, step=1, label="Intensity (Higher = stronger JPEG artifact removal)"),
-              gr.inputs.Slider(minimum=10, maximum=100, step=1, default=50, label="Zoom Image "
-                                                                                  "(Use this to see a copy of the output image up close. "
-                                                                                   "100 = original size)"),
-              gr.inputs.Slider(minimum=0, maximum=100, step=1, label="Zoom horizontal shift "
-                                                                     "(Increase to shift to the right)"),
-              gr.inputs.Slider(minimum=0, maximum=100, step=1, label="Zoom vertical shift "
-                                                                     "(Increase to shift downwards)")
+    inputs = [gr.Image(label="Input Image"),
+              gr.Checkbox(label="Grayscale (Check this if your image is grayscale)"),
+              gr.Slider(minimum=1, maximum=100, step=1, label="Intensity (Higher = stronger JPEG artifact removal)"),
+              gr.Slider(minimum=10, maximum=100, step=1, value=50, label="Zoom Image "
+                                                                         "(Use this to see a copy of the output image up close. "
+                                                                         "100 = original size)"),
+              gr.Slider(minimum=0, maximum=100, step=1, label="Zoom horizontal shift (Increase to shift to the right)"),
+              gr.Slider(minimum=0, maximum=100, step=1, label="Zoom vertical shift (Increase to shift downwards)")
               ],
-    outputs = [gr.outputs.Image(label="Result"),
-               gr.outputs.Image(label="Before:"),
-               gr.outputs.Image(label="After:")],
+    outputs = [gr.Image(label="Result"),
+               gr.Image(label="Before:"),
+               gr.Image(label="After:")],
     examples = [["doraemon.jpg",False,60,42,50,50],
                ["tomandjerry.jpg",False,60,40,57,44],
                ["somepanda.jpg",True,100,30,8,24],
