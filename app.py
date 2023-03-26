@@ -24,14 +24,6 @@ def inference(input_img, is_gray, input_quality, zoom, x_shift, y_shift):
     print("datetime:",datetime.datetime.utcnow())
     input_img_width, input_img_height = Image.fromarray(input_img).size
     print("img size:",(input_img_width,input_img_height))
-    
-    if (input_img_width > 1080) or (input_img_height > 1080):
-        resize_ratio = min(1080/input_img_width, 1080/input_img_height)
-        resized_input = Image.fromarray(input_img).resize((int(input_img_width*resize_ratio)+(input_img_width*resize_ratio < 1),
-                                                           int(input_img_height*resize_ratio)+(input_img_height*resize_ratio < 1)),
-                                                          resample=Image.BICUBIC)
-        input_img = np.array(resized_input)
-        print("input image resized to:", resized_input.size)
 
     if is_gray:
         n_channels = 1 # set 1 for grayscale image, set 3 for color image
