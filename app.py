@@ -9,6 +9,7 @@ import utils_image as util
 from network_fbcnn import FBCNN as net
 import requests
 import datetime
+import time
 
 for model_path in ['fbcnn_gray.pth','fbcnn_color.pth']:
     if os.path.exists(model_path):
@@ -118,7 +119,10 @@ def inference(input_img, is_gray, input_quality, zoom, x_shift, y_shift):
     print("#torch.tensor([[1-input_quality/100]]).to(device)")
     qf_input = torch.tensor([[1-input_quality/100]]).to(device)
     print("#util.single2uint(img_E)")
+
+    start = time.perf_counter()
     img_E,QF = model(img_L, qf_input)  
+    end = time.perf_counter()
 
     print("#util.tensor2single(img_E)")
     img_E = util.tensor2single(img_E)
@@ -128,7 +132,7 @@ def inference(input_img, is_gray, input_quality, zoom, x_shift, y_shift):
     if img_E.ndim == 3:
         img_E = img_E[:, :, [2, 1, 0]]
     
-    print("--inference finished")
+    print(f"--inference finished (took {end - start}s)")
 
     out_img = Image.fromarray(img_E)
     out_img_w, out_img_h = out_img.size # output image size
